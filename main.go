@@ -60,9 +60,9 @@ func main() {
 		go func(ip string) {
 			t, err := checkSSH(ip)
 			if err != nil {
-				fmt.Printf("%20s Timeout", ip)
+				fmt.Printf("%-20s %10s", ip, err)
 			} else {
-				fmt.Printf("%+20s %2d", ip, t)
+				fmt.Printf("%-20s %10d", ip, t)
 			}
 		}(ip)
 	}
