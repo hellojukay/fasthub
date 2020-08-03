@@ -1,0 +1,34 @@
+name: auto release
+on:
+    push:
+        tags:
+            - v*
+
+
+jobs:
+    build:
+        name: build
+        runs-on: ubuntu-latest
+        steps:
+            - name: Set up Go 1.x
+              uses: actions/setup-go@v2
+              with:
+                  go-version: ^1.13
+              id: go
+
+            - name: Check out code into the Go module directory
+              uses: actions/checkout@v2
+
+            - name: go build
+              run: |
+                  go get -u github.com/jteeuwen/go-bindata/...
+                  go generate
+                  go build
+            - name: upload file
+              uses: "marvinpinto/action-automatic-releases@latest"
+              with:
+                  repo_token: "${{ secrets.GITHUB_TOKEN }}"
+                  prerelease: false
+                  files: |
+                      fasthub
+                      LICENSE
