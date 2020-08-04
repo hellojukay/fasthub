@@ -123,6 +123,7 @@ func main() {
 			} else {
 				fmt.Printf("%-20s%6s%8s\n", address.IP, fmt.Sprintf("%2.2fs", t), address.TYPE)
 			}
+			waitGroup.Done()
 		}(ip)
 	}
 	waitGroup.Wait()
